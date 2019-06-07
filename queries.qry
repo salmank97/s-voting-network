@@ -1,0 +1,17 @@
+query getAllCandidates {
+  description: "Return all the candidates."
+  statement:
+      SELECT one.xord.svoting.Candidate
+}
+
+query getAllVoters {
+  description: "Return all the voters."
+  statement:
+      SELECT one.xord.svoting.Voter
+}
+
+query getAllVotes {
+  description: "Return all the votes."
+  statement:
+      SELECT one.xord.svoting.Vote
+}

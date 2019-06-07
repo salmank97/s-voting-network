@@ -1,0 +1,54 @@
+namespace one.xord.svoting
+
+abstract participant Entity identified by id {
+  o String id
+  o String name
+}
+
+participant Administrator extends Entity {}
+
+participant Society extends Entity {
+  o String presidentId
+}
+
+participant Candidate extends Entity {
+  o Double cgpa range = [3.5, 4.0]
+  o Integer semester range = [5, 8]
+  o String pastExperience
+  o Integer totalVotes default = 0 optional
+  --> Society society
+  --> Election election
+}
+
+participant Voter extends Entity {
+  o Double cgpa default = 0.0 range = [0.0, 4.0] optional
+  o Integer semester default = 1 range = [1, 8] optional
+  o Boolean hasVoted default = false optional
+}
+
+asset Election identified by id {
+  o String id
+  o Long prepareTime
+  o Long startTime
+  o Long endTime
+  o String position
+  o Long totalVotes default = 0 optional
+  --> Society[] societies
+}
+
+asset Vote identified by id {
+  o String id
+  --> Entity owner
+}
+
+event VoteEvent {
+  o String status
+  o String message
+}
+
+transaction CastVote {
+  o String voteId
+  o String voterId
+  o String candidateId
+  o String electionId
+}
